@@ -1,11 +1,11 @@
 from typing import Any, Dict, List, Type
-
+import json
 import instructor
 from anthropic import Anthropic
 from config.settings import get_settings
 from openai import OpenAI
 from pydantic import BaseModel, Field
-from models.model_drink import Drink
+from models.model_drink import DrinkRecipe
 
 
 class LLMFactory:
@@ -47,24 +47,27 @@ class LLMFactory:
 
 if __name__ == "__main__":
 
-    class CompletionModel(BaseModel):
-        response: str = Field(description="Your response to the user.")
-        reasoning: str = Field(description="Explain your reasoning for the response.")
-
+    liquor = "Vodka"
+    flavor = "Sweet"
+    mood = "Happy"
     messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
+        {
+            "role": "system",
+            "content": "You are a helpful mixologist designed to output JSON.",
+        },
         {
             "role": "user",
-            "content": "Why is the sky blue?",
+            "content": " f'''Create a unique creative advanced cocktail recipe based on the following user preferences of {liquor}, {flavor}, {mood}.  Name the drink something creative with a lot of variability and uniquess.",
         },
     ]
 
-    llm = LLMFactory("anthropic")
+    llm = LLMFactory("openai")
     completion = llm.create_completion(
-        response_model=CompletionModel,
+        response_model=DrinkRecipe,
         messages=messages,
     )
-    assert isinstance(completion, CompletionModel)
+    assert isinstance(completion, DrinkRecipe)
 
-    print(f"Response: {completion.response}\n")
-    print(f"Reasoning: {completion.reasoning}")
+    print(completion.json())
+    # print(f"name: {completion.name}\n")
+    # print(f"description: {completion.description}")
