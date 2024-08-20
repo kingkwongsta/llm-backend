@@ -1,5 +1,6 @@
 instructor
 pydantic
+pydantic-settings
 python-dotenv
 fastapi[all]
 octoai-sdk
