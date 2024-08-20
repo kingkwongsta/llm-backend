@@ -1,10 +1,17 @@
 from typing import Any, Dict, List, Type
-import json
 import instructor
 from anthropic import Anthropic
-from config.settings import get_settings
 from openai import OpenAI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+
+# Add parent directory to sys.path to import config.settings and models.model_drink
+import os
+import sys
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(current_dir, ".."))
+sys.path.append(parent_dir)
+from config.settings import get_settings
 from models.model_drink import DrinkRecipe
 
 
@@ -45,8 +52,18 @@ class LLMFactory:
         return self.client.chat.completions.create(**completion_params)
 
 
-def generate_llm_response(messages, llm_model, JSON_format):
+def generate_llm_response(llm_model, JSON_format, system, user):
     llm = LLMFactory(llm_model)
+    messages = [
+        {
+            "role": "system",
+            "content": system,
+        },
+        {
+            "role": "user",
+            "content": user,
+        },
+    ]
     completion = llm.create_completion(
         response_model=JSON_format,
         messages=messages,
@@ -56,18 +73,6 @@ def generate_llm_response(messages, llm_model, JSON_format):
     return completion.json()
 
 
-liquor = "Vodka"
-flavor = "Sweet"
-mood = "Happy"
-messages = [
-    {
-        "role": "system",
-        "content": "You are a helpful mixologist designed to output JSON.",
-    },
-    {
-        "role": "user",
-        "content": " f'''Create a unique creative advanced cocktail recipe based on the following user preferences of {liquor}, {flavor}, {mood}.  Name the drink something creative with a lot of variability and uniquess.",
-    },
-]
-
-print(generate_llm_response(messages, "openai", DrinkRecipe))
+# print(generate_llm_response(messages, "openai", DrinkRecipe))
+# you are an expert mixologist
+# Create a unique creative advanced cocktail recipe based on the following user preferences of {gin}, {sour}, {sad}. Name the drink something creative with a lot of variability and uniqueness",
