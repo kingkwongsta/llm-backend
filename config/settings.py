@@ -15,7 +15,7 @@ class LLMProviderSettings(BaseSettings):
 
 class OpenAISettings(LLMProviderSettings):
     api_key: str = os.getenv("OPENAI_API_KEY")
-    default_model: str = "gpt-4o"
+    default_model: str = "gpt-4o-mini-2024-07-18"
 
 
 class AnthropicSettings(LLMProviderSettings):
@@ -28,7 +28,6 @@ class Settings(BaseSettings):
     app_name: str = "GenAI Project Template"
     openai: OpenAISettings = OpenAISettings()
     anthropic: AnthropicSettings = AnthropicSettings()
-    llama: LlamaSettings = LlamaSettings()
 
 
 @lru_cache

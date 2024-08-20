@@ -54,7 +54,7 @@ if __name__ == "__main__":
         {"role": "system", "content": "You are a helpful assistant."},
         {
             "role": "user",
-            "content": "If it takes 2 hours to dry 1 shirt out in the sun, how long will it take to dry 5 shirts?",
+            "content": "Why is the sky blue?",
         },
     ]
 
