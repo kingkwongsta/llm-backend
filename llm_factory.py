@@ -45,29 +45,29 @@ class LLMFactory:
         return self.client.chat.completions.create(**completion_params)
 
 
-if __name__ == "__main__":
-
-    liquor = "Vodka"
-    flavor = "Sweet"
-    mood = "Happy"
-    messages = [
-        {
-            "role": "system",
-            "content": "You are a helpful mixologist designed to output JSON.",
-        },
-        {
-            "role": "user",
-            "content": " f'''Create a unique creative advanced cocktail recipe based on the following user preferences of {liquor}, {flavor}, {mood}.  Name the drink something creative with a lot of variability and uniquess.",
-        },
-    ]
-
-    llm = LLMFactory("openai")
+def generate_llm_response(messages, llm_model, JSON_format):
+    llm = LLMFactory(llm_model)
     completion = llm.create_completion(
-        response_model=DrinkRecipe,
+        response_model=JSON_format,
         messages=messages,
     )
-    assert isinstance(completion, DrinkRecipe)
+    assert isinstance(completion, JSON_format)
 
-    print(completion.json())
-    # print(f"name: {completion.name}\n")
-    # print(f"description: {completion.description}")
+    return completion.json()
+
+
+liquor = "Vodka"
+flavor = "Sweet"
+mood = "Happy"
+messages = [
+    {
+        "role": "system",
+        "content": "You are a helpful mixologist designed to output JSON.",
+    },
+    {
+        "role": "user",
+        "content": " f'''Create a unique creative advanced cocktail recipe based on the following user preferences of {liquor}, {flavor}, {mood}.  Name the drink something creative with a lot of variability and uniquess.",
+    },
+]
+
+print(generate_llm_response(messages, "openai", DrinkRecipe))
