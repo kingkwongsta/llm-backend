@@ -1,0 +1,8 @@
+instructor
+pydantic
+python-dotenv
+fastapi[all]
+octoai-sdk
+gunicorn
+anthropic
+openai
