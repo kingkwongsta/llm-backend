@@ -5,6 +5,7 @@ from anthropic import Anthropic
 from config.settings import get_settings
 from openai import OpenAI
 from pydantic import BaseModel, Field
+from models.model_drink import Drink
 
 
 class LLMFactory:
@@ -58,7 +59,7 @@ if __name__ == "__main__":
         },
     ]
 
-    llm = LLMFactory("openai")
+    llm = LLMFactory("anthropic")
     completion = llm.create_completion(
         response_model=CompletionModel,
         messages=messages,

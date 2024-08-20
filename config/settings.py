@@ -20,7 +20,7 @@ class OpenAISettings(LLMProviderSettings):
 
 class AnthropicSettings(LLMProviderSettings):
     api_key: str = os.getenv("ANTHROPIC_API_KEY")
-    default_model: str = "claude-3-5-sonnet-20240620"
+    default_model: str = "claude-3-haiku-20240307"
     max_tokens: int = 1024
 
 
