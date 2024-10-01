@@ -1,32 +1,38 @@
-import asyncio
 import fal_client
-import os
+from PIL import Image
+import requests
+from io import BytesIO
+
+
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-FAL_API_KEY = os.getenv("FAL_API_KEY")
+# Set your FAL AI API key
+fal_client.api_key = os.getenv("FAL_API_KEY")
 
 
-async def submit():
-    handler = await fal_client.submit_async(
+def generate_image(prompt):
+    handler = fal_client.submit(
         "fal-ai/flux/schnell",
-        api_key=FAL_API_KEY,
-        arguments={
-            "prompt": 'Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth. The word "FLUX" is painted over it in big, white brush strokes with visible texture.'
-        },
+        arguments={"prompt": prompt},
     )
 
-    log_index = 0
-    async for event in handler.iter_events(with_logs=True):
-        if isinstance(event, fal_client.InProgress):
-            new_logs = event.logs[log_index:]
-            for log in new_logs:
-                print(log["message"])
-            log_index = len(event.logs)
-
-    result = await handler.get()
-    print(result)
+    result = handler.get()
+    return result["image"]
 
 
-asyncio.run(submit())
+def save_image(image_url, filename):
+    response = requests.get(image_url)
+    img = Image.open(BytesIO(response.content))
+    img.save(filename)
+    print(f"Image saved as {filename}")
+
+
+# Main execution
+if __name__ == "__main__":
+    prompt = 'Extreme close-up of a single tiger eye, direct frontal view. Detailed iris and pupil. Sharp focus on eye texture and color. Natural lighting to capture authentic eye shine and depth. The word "FLUX" is painted over it in big, white brush strokes with visible texture.'
+
+    image_url = generate_image(prompt)
+    save_image(image_url, "flux_generated_image.png")
