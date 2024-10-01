@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from services.llm_json import generate_llm_response
-from typing import List, Type
 from models.model_drink import DrinkRecipe
 import json
 
