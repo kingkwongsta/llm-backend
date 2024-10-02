@@ -1,6 +1,8 @@
 # .venv\Scripts\Activate.ps1
+# cd .venv && source bin/activate
 # uvicorn main:app --reload
 # .venv\Scripts\Activate.ps1; cd backend; uvicorn main:app --reload
+# cd .venv && source bin/activate && cd .. && cd app && uvicorn main:app --reload
 
 import uvicorn
 from os import getenv

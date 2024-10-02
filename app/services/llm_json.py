@@ -71,8 +71,3 @@ def generate_llm_response(llm_model, JSON_format, system, user):
     assert isinstance(completion, JSON_format)
 
     return completion.json()
-
-
-# print(generate_llm_response(messages, "openai", DrinkRecipe))
-# you are an expert mixologist
-# Create a unique creative advanced cocktail recipe based on the following user preferences of {gin}, {sour}, {sad}. Name the drink something creative with a lot of variability and uniqueness",
