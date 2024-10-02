@@ -7,4 +7,3 @@ octoai-sdk
 gunicorn
 anthropic
 openai
-fal-client
