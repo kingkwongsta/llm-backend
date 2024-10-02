@@ -28,7 +28,7 @@ async def get_response(
     return response
 
 
-@app.get("/image")
+@app.get("/text_to_image")
 async def get_image(prompt: str = Query(default=None)):
     response = generate_image(prompt)
     return response["images"][0]["url"]
