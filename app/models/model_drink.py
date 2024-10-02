@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
 
 
@@ -12,6 +12,9 @@ class DrinkRecipe(BaseModel):
     description: str
     ingredients: List[IngredientItem]
     instructions: List[str]
+    drink_feeling: str = Field(
+        description="The feeling/mood that the drink evokes including a settings"
+    )
 
 
 class Drink(BaseModel):

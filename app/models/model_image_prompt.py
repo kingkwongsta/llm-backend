@@ -1,6 +1,5 @@
-from pydantic import BaseModel
-from typing import List
+from pydantic import BaseModel, Field
 
 
 class ImagePrompt(BaseModel):
-    prompt: str
+    prompt: str = Field(description="The text to image prompt to generate an image")

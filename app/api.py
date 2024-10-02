@@ -2,6 +2,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from services.llm_json import generate_llm_response
 from services.image import generate_image
+from services.image_prompt import generate_image_prompt
 from models.model_drink import DrinkRecipe
 import json
 
@@ -32,3 +33,9 @@ async def get_response(
 async def get_image(prompt: str = Query(default=None)):
     response = generate_image(prompt)
     return response["images"][0]["url"]
+
+
+@app.get("/image_prompt")
+async def get_image_prompt(input: str = Query(default=None)):
+    response = json.loads(generate_image_prompt("openai", input))
+    return response
