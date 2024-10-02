@@ -19,5 +19,5 @@ def generate_image(prompt):
     )
 
     result = handler.get()
-    print(result)
+
     return result
