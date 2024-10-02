@@ -30,5 +30,5 @@ async def get_response(
 
 @app.get("/image")
 async def get_image(prompt: str = Query(default=None)):
-    response = json.loads(generate_image(prompt))
-    return response
+    response = generate_image(prompt)
+    return response["images"][0]["url"]
