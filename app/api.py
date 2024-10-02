@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from services.llm_json import generate_llm_response
+from services.image import generate_image
 from models.model_drink import DrinkRecipe
 import json
 
@@ -24,4 +25,10 @@ async def get_response(
     if JSON_format == "drink":
         format = DrinkRecipe
     response = json.loads(generate_llm_response(llm_model, format, system, user))
+    return response
+
+
+@app.get("/image")
+async def get_image(prompt: str = Query(default=None)):
+    response = json.loads(generate_image(prompt))
     return response

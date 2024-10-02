@@ -7,11 +7,11 @@ load_dotenv()
 fal_client.api_key = os.getenv("FAL_KEY")
 
 
-def generate_image():
+def generate_image(prompt):
     handler = fal_client.submit(
         "fal-ai/flux/schnell",
         arguments={
-            "prompt": "a cat",
+            "prompt": prompt,
             "seed": random.randint(1, 100000),
             "image_size": "landscape_4_3",
             "num_images": 1,
