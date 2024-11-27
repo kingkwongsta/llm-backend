@@ -1,5 +1,5 @@
 # .venv\Scripts\Activate.ps1
-# venv\Scripts\Activate.ps1
+# .\.venv\Scripts\Activate.ps1
 # cd .venv && source bin/activate
 # uvicorn main:app --reload
 # .venv\Scripts\Activate.ps1; cd backend; uvicorn main:app --reload
