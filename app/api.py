@@ -43,7 +43,7 @@ async def root():
 #     return response
 
 
-@app.get("/genereate_cocktail")
-async def get_cockatil(prompt: str = Query(default=None)):
-    response = generate_cocktail(prompt)
-    return response
+# @app.get("/genereate_cocktail")
+# async def get_cockatil(prompt: str = Query(default=None)):
+#     response = generate_cocktail(prompt)
+#     return response
