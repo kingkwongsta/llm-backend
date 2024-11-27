@@ -42,7 +42,7 @@ async def get_response(
 #     return response
 
 
-@app.get("/genereate_cocktail")
+@app.get("/generate_cocktail")
 async def get_cockatil(prompt: str = Query(default=None)):
     response = generate_cocktail(prompt)
     return response
