@@ -1,6 +1,6 @@
-from llm_json import generate_llm_response
-from image_prompt import generate_image_prompt
-from text_to_image import generate_image
+from services.llm_json import generate_llm_response
+from services.image_prompt import generate_image_prompt
+from services.text_to_image import generate_image
 from models.model_drink import DrinkRecipe
 import json
 import time
